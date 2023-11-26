@@ -75,7 +75,8 @@ INSERT INTO Lesson (LessonType, Level, MaxStudents, MinStudents, TimeSlot, Targe
 VALUES 
   ('individual', 'beginner', 1, 1, '2023-11-23 12:00:00', 'Rock', 1, 1),
   ('group', 'intermediate', 5, 3, '2023-11-24 14:00:00', 'Jazz', 2, 2),
-  ('ensemble', 'advanced', 8, 5, '2023-11-25 16:30:00', 'Classical', 3, 3);
+  ('ensemble', 'advanced', 8, 5, '2023-11-25 16:30:00', 'Classical', 3, 3),
+  ('ensemble', 'advanced', 8, 5, '2023-12-25 16:30:00', 'Classical', 3, 3);
 
 -- Inserting sample data into the LessonAttendance table
 INSERT INTO LessonAttendance (LessonID, StudentID)
