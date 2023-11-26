@@ -26,8 +26,8 @@ ALTER TABLE Instrument ADD CONSTRAINT PK_Instrument PRIMARY KEY (InstrumentID);
 
 CREATE TABLE PricingScheme (
  PricingSchemeID SERIAL NOT NULL,
- LessonType CHAR(20) NOT NULL,
- Level CHAR(20) NOT NULL,
+ LessonType LessonTypes NOT NULL,
+ Level Levels NOT NULL,
  StudentPaying DECIMAL(10) NOT NULL,
  TeacherReceiving DECIMAL(10) NOT NULL,
  Discount DECIMAL(10),
@@ -141,8 +141,8 @@ ALTER TABLE Availability ADD CONSTRAINT PK_Availability PRIMARY KEY (InstructorI
 
 CREATE TABLE Lesson (
  LessonID SERIAL NOT NULL,
- LessonType CHAR(20) NOT NULL,
- Level CHAR(20) NOT NULL,
+ LessonType LessonTypes NOT NULL,
+ Level Levels NOT NULL,
  MaxStudents INT NOT NULL,
  MinStudents INT NOT NULL,
  TimeSlot TIMESTAMP(10),
