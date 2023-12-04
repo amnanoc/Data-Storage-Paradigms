@@ -32,21 +32,35 @@ VALUES
 -- Inserting sample data into the Student table
 INSERT INTO Student (Name, PersonNumber, Phone, Email, NumberOfRentedInstruments)
 VALUES 
-  ('Alice Johnson', 111111, '555-1111', 'alice@email.com', 1),
+  ('Alice Johnson', 111111, '555-1111', 'alice@email.com', 0),
   ('Bob Smith', 222222, '555-2222', 'bob@email.com', 0),
-  ('Charlie Brown', 333333, '555-3333', 'charlie@email.com', 2);
+  ('Charlie Brown', 333333, '555-3333', 'charlie@email.com', 0),
+  ('John Brown', 444444, '555-3333', 'john@email.com', 0),
+  ('Tom Brown', 555555, '555-3333', 'tom@email.com', 0),
+  ('Laura Mercier', 66666, '555-3333', 'laura@email.com', 0);
+
+
+
 
 -- Inserting sample data into the StudentContactPerson table
 INSERT INTO StudentContactPerson (StudentID, Name, Phone, Email)
 VALUES 
   (1, 'Parent 1', '555-1234', 'parent1@email.com'),
   (2, 'Parent 2', '555-5678', 'parent2@email.com'),
-  (3, 'Parent 3', '555-9012', 'parent3@email.com');
+  (3, 'Parent 3', '555-9012', 'parent3@email.com'),
+  (4, 'Parent 4', '555-9012', 'parent4@email.com'),
+  (5, 'Parent 5', '555-9012', 'parent5@email.com'),
+  (6, 'Parent 6', '555-9012', 'parent6@email.com');
+
+
 
   -- Inserting data into StudentSiblings
 INSERT INTO StudentSiblings (StudentID, SiblingStudentID)
 VALUES
-  (1, 2);  
+  (1,2),
+  (3,4),
+  (3,5),
+  (4,5);  
 
 -- Inserting data into StudentRentals
 INSERT INTO StudentRentals (InstrumentID, RentalStartDate, RentalEndDate, StudentID, RentalPricingID)
@@ -73,10 +87,14 @@ VALUES
 -- Inserting sample data into the Lesson table
 INSERT INTO Lesson (LessonType, Level, MaxStudents, MinStudents, TimeSlot, TargetGenre, PricingSchemeID, InstructorID)
 VALUES 
-  ('individual', 'beginner', 1, 1, '2023-11-23 12:00:00', 'Rock', 1, 1),
-  ('group', 'intermediate', 5, 3, '2023-11-24 14:00:00', 'Jazz', 2, 2),
+  ('individual', 'beginner', 1, 1, '2023-11-23 12:00:00', NULL, 1, 1),
+  ('group', 'intermediate', 5, 3, '2023-11-24 14:00:00', NULL, 2, 2),
   ('ensemble', 'advanced', 8, 5, '2023-11-25 16:30:00', 'Classical', 3, 3),
-  ('ensemble', 'advanced', 8, 5, '2023-12-25 16:30:00', 'Classical', 3, 3);
+  ('group', 'advanced', 8, 5, '2023-12-12 16:30:00', NULL, 2, 3),
+  ('group', 'advanced', 8, 5, '2023-12-13 16:30:00', NULL, 2, 3),
+  ('ensemble', 'advanced', 8, 5, '2023-12-25 16:30:00', 'Classical', 3, 3),
+  ('ensemble', 'advanced', 8, 5, '2023-12-13 16:30:00', 'Classical', 3, 3);
+
 
 -- Inserting sample data into the LessonAttendance table
 INSERT INTO LessonAttendance (LessonID, StudentID)
