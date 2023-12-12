@@ -26,7 +26,8 @@ INSERT INTO RentalPricing (InstrumentID, Amount, ValidFrom, ValidTo)
 VALUES
   (1, 20.00, '2023-01-01', '2023-12-31'), 
   (2, 30.00, '2023-01-01', '2023-12-31'), 
-  (3, 25.00, '2023-01-01', '2023-12-31'); 
+  (3, 25.00, '2023-01-01', '2023-12-31'),
+  (4, 4, 100.00, '2023-01-01', '2023-12-31');
 
 
 -- Inserting sample data into the Student table
