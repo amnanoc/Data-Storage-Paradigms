@@ -85,26 +85,28 @@ ALTER TABLE StudentRentals ADD CONSTRAINT PK_StudentRentals PRIMARY KEY (RentalI
 
 -- Trigger function to check the number of available instruments before insertion
 CREATE OR REPLACE FUNCTION check_instrument_availability()
-    RETURNS TRIGGER AS $$
+   RETURNS TRIGGER AS $$
 BEGIN
-    -- Check if the instrument has enough quantity available for rental
-    IF (
-        SELECT COUNT(*)
-        FROM StudentRentals
-        WHERE InstrumentID = NEW.InstrumentID
-          AND RentalEndDate >= NEW.RentalStartDate
-          AND RentalStartDate <= NEW.RentalEndDate
-    ) >= (
-        SELECT Quantity
-        FROM Instrument
-        WHERE InstrumentID = NEW.InstrumentID
-    ) THEN
-        RAISE EXCEPTION 'Not enough quantity available for the selected instrument during the specified period';
-    END IF;
+   -- Check if the instrument has enough quantity available for rental
+   IF (
+       SELECT COUNT(*)
+       FROM StudentRentals
+       WHERE InstrumentID = NEW.InstrumentID
+         AND RentalEndDate >= NEW.RentalStartDate
+         AND RentalStartDate <= NEW.RentalEndDate
+         AND (CURRENT_DATE > RentalEndDate OR RentalEndDate IS NULL)
+   ) >= (
+       SELECT Quantity
+       FROM Instrument
+       WHERE InstrumentID = NEW.InstrumentID
+   ) THEN
+       RAISE EXCEPTION 'Not enough quantity available for the selected instrument during the specified period';
+   END IF;
 
-    RETURN NEW;
+   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 
 -- Trigger to call the trigger function before each insert on StudentRentals
 CREATE TRIGGER check_instrument_availability_trigger

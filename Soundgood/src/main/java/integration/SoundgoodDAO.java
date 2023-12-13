@@ -142,23 +142,33 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
      */
     public List<Instrument> readInstruments(boolean lockExclusive) throws SoundgoodDBException, SQLException {
         ResultSet result = null;
-        try (PreparedStatement ste = lockExclusive ? listInstrumentsLockForUpdateStatement : listInstrumentsStatement) {
+        PreparedStatement ste;
+        try {
+            String query = lockExclusive ? listInstrumentsLockForUpdateStatement.toString() : listInstrumentsStatement.toString();
+            ste = connection.prepareStatement(query);
             String failureMsg = "Could not list instruments.";
             List<Instrument> instruments = new ArrayList<>();
-            try  {
+            try {
                 result = ste.executeQuery();
                 while (result.next()) {
                     instruments.add(new Instrument( result.getInt(INSTRUMENT_PK_COLUMN_NAME),
-                                             result.getString(INSTRUMENT_NAME_COLUMN_NAME),
-                                             result.getString(INSTRUMENT_TYPE_COLUMN_NAME),
-                                             result.getString(INSTRUMENT_BRAND_COLUMN_NAME),
-                                             result.getInt(RENTAL_PRICING_PRICE_COLUMN_NAME)));
+                            result.getString(INSTRUMENT_NAME_COLUMN_NAME),
+                            result.getString(INSTRUMENT_TYPE_COLUMN_NAME),
+                            result.getString(INSTRUMENT_BRAND_COLUMN_NAME),
+                            result.getInt(RENTAL_PRICING_PRICE_COLUMN_NAME)));
                 }
                 connection.commit();
             } catch (SQLException sqle) {
                 handleException(failureMsg, sqle);
+            } finally {
+                if (ste != null) {
+                    ste.close();
+                }
             }
             return instruments;
+        } catch (SQLException sqle) {
+            handleException("Could not list instruments.", sqle);
+            return null;
         }
     }
 
