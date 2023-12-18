@@ -59,7 +59,7 @@ public class Controller {
             throw new InstrumentException(failureMsg);
         }
 
-        List<? extends InstrumentDTO> instruments = getAllInstruments(true);
+        List<? extends InstrumentDTO> instruments = getAllInstruments(true); //instruments get locked
         if (instruments.stream().noneMatch(o -> o.getInstrumentID().equals(instrument_id))) {
             throw new InstrumentException(failureMsg);
         }
@@ -69,6 +69,7 @@ public class Controller {
         try {
             soundgoodDB.createRental(student_id, instrument_id);
             System.out.println("Sucessfully rented instrument " + instrument_id + " to student: " + student_id + ".");
+            soundgoodDB.commit();
         } catch (Exception e) {
             throw new InstrumentException(failureMsg, e);
         }
@@ -90,6 +91,7 @@ public class Controller {
         try {
             soundgoodDB.deleteRental(rental_id);
             System.out.println("Sucessfully terminated rental " + rental_id + ".");
+            soundgoodDB.commit();
         } catch (Exception e) {
             throw new InstrumentException(failureMsg, e);
         }

@@ -108,7 +108,6 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
         if (updatedRows != 1) {
             handleException(failureMsg, null);
         }
-        connection.commit();
     } catch (SQLException sqle) {
         handleException(failureMsg, sqle);
     }
@@ -127,7 +126,6 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
             if (updatedRows != 1) {
                 handleException(failureMsg, null);
             }
-            connection.commit();
         } catch (SQLException sqle) {
             handleException(failureMsg, sqle);
         }
@@ -157,7 +155,6 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
                             result.getString(INSTRUMENT_BRAND_COLUMN_NAME),
                             result.getInt(RENTAL_PRICING_PRICE_COLUMN_NAME)));
                 }
-                connection.commit();
             } catch (SQLException sqle) {
                 handleException(failureMsg, sqle);
             } finally {
