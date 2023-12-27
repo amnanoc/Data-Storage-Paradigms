@@ -83,7 +83,7 @@ public class SoundgoodDAO {
      * @param instrument_id The instrument to rent.
      * @throws SoundgoodDBException If failed to create rental.
      */
-public void createRental(Integer student_id, Integer instrument_id) throws SoundgoodDBException {
+public void createRental(Integer student_id, Integer instrument_id) throws SoundgoodDBException, SQLException {
     String failureMsg = "Could not create rental for student_id: " + student_id + " and instrument: " + instrument_id + ".";
     try {
         // Get the current date
@@ -111,6 +111,8 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
     } catch (SQLException sqle) {
         handleException(failureMsg, sqle);
     }
+
+    connection.commit();
 }
 
     /**
@@ -118,7 +120,7 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
      * @param rentalID The rental to terminate.
      * @throws SoundgoodDBException If unable to terminate the specified rental.
      */
-    public void deleteRental(int rentalID) throws SoundgoodDBException {
+    public void deleteRental(int rentalID) throws SoundgoodDBException, SQLException {
         String failureMsg = "Could not terminate rental: " + rentalID;
         try {
             deleteRentalStatement.setInt(1, rentalID);
@@ -129,6 +131,8 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
         } catch (SQLException sqle) {
             handleException(failureMsg, sqle);
         }
+
+        connection.commit();
     }
 
     /**
