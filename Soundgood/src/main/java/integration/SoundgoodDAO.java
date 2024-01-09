@@ -112,7 +112,7 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
         handleException(failureMsg, sqle);
     }
 
-    connection.commit();
+    commit();
 }
 
     /**
@@ -132,7 +132,7 @@ public void createRental(Integer student_id, Integer instrument_id) throws Sound
             handleException(failureMsg, sqle);
         }
 
-        connection.commit();
+        commit();
     }
 
     /**
